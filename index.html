@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>CSS - Frosted glass effect</title>
+		<meta name="description" content="">
+		<meta name="author" content="Anthony Dry">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<!--<link rel="stylesheet" href="lib/tuktuk/tuktuk.css" type="text/css">
+		<link rel="stylesheet" href="lib/tuktuk/tuktuk.icons.css" type="text/css">
+		<link rel="stylesheet" href="lib/tuktuk/tuktuk.theme.css" type="text/css">
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="stylesheet" href="tuktuk.css" type="text/css">
+		<link rel="stylesheet" href="tuktuk.icons.css" type="text/css">
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,500' rel='stylesheet' type='text/css'>
+		 <link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+	<img src="arrow.gif" class="arrow">
+	<div class="app">
+		<h1 id="a">BEARDIFY</h1>
+		<div id="cam-view"></div>
+		<div data-id="1" class="beard"><img class="beard-img" src="beards/beard1.png"></div>
+		<div class="beard-big-logo"></div>
+	</div>
+	<div class="controls">
+		<h2 id="beard-name">THE DAD</h2>
+		<h4>SCALE BEARD</h4>
+		<a href="#" id="go-left"><span class="icon angle-left"></span></a>
+		<a href="#" id="go-right"><span class="icon angle-right"></span></a>
+		<input id="scale" type="range" min="50" max="150">
+	</div>
+	<p>I <span class="icon heart"></span> stupid ideas!</p>
+	<img src="http://ragemaker.net/images/Neutral/like%20a%20sir%20wine.png" class="sir">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	  <script src="webcam.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		Webcam.set({
+			// live preview size
+			width: 800,
+			height: 800,
+			// device capture size
+			dest_width: 1067,
+			dest_height: 800,
+			
+			
+			// format and quality
+			image_format: 'jpeg',
+			jpeg_quality: 90
+		});
+		 Webcam.attach( '#cam-view' );
+
+        function take_snapshot() {
+            Webcam.snap( function(data_uri) {
+                document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+            } );
+        }
+        Webcam.on('onLive',function(){
+        	$('.beard-big-logo').css('opacity','0');
+        	$('.arrow').css('opacity','0');
+        	$('.beard-big-logo').css('-webkit-transform','scale(2)');
+        	$('#cam-view').css('opacity','1');
+        	//remove the arrow pointing on accepting webcam.
+        });
+         $('#scale').on("change mousemove", function() {
+		    var value = $(this).val() / 100;
+		    $('.beard').css('-webkit-transform','scale('+value+')');
+		});
+         $('#go-left').click(function(e){
+         	e.preventDefault;
+         	var pos = $('.beard').data('id');
+         	var newPos = pos -1;
+         	if(newPos < 1 || newPos > 5 ){
+
+         	}
+         	else{
+         		$('.beard').data('id', newPos);
+         		$('.beard-img').attr('src', 'beards/beard'+newPos+'.png');
+         		switch(newPos){
+         			case 1: $('#beard-name').html('THE DAD'); break;
+         			case 2: $('#beard-name').html('THE CHUCKIE'); break;
+         			case 3: $('#beard-name').html('THE GRAND'); break;
+         			case 4: $('#beard-name').html('THE EL TACO'); break;
+         			case 5: $('#beard-name').html('THE HANGOVER'); break;
+         		}
+         	}
+         });
+          $('#go-right').click(function(e){
+         	e.preventDefault;
+         	var pos = $('.beard').data('id');
+         	var newPos = pos +1;
+         	if(newPos < 1 || newPos > 5 ){
+
+         	}
+         	else{
+         		$('.beard').data('id',newPos);
+         		$('.beard-img').attr('src', 'beards/beard'+newPos+'.png');
+         		switch(newPos){
+         			case 1: $('#beard-name').html('THE DAD'); break;
+         			case 2: $('#beard-name').html('THE CHUCKIE'); break;
+         			case 3: $('#beard-name').html('THE GRAND'); break;
+         			case 4: $('#beard-name').html('THE EL TACO'); break;
+         			case 5: $('#beard-name').html('THE HANGOVER'); break;
+         		}
+         	}
+         });
+	});
+	</script>
+	</body>
+</html>
